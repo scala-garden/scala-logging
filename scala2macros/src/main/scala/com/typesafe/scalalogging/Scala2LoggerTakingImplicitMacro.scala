@@ -19,7 +19,9 @@ private[scalalogging] object Scala2LoggerTakingImplicitMacro {
         }"""
   }
 
-  def errorMessageCause[A](c: LoggerContext[A])(message: c.Expr[String], cause: c.Expr[Throwable])(a: c.Expr[A]): c.universe.Tree = {
+  def errorMessageCause[A](
+      c: LoggerContext[A]
+  )(message: c.Expr[String], cause: c.Expr[Throwable])(a: c.Expr[A]): c.universe.Tree = {
     import c.universe._
     val underlying = q"${c.prefix}.underlying"
     val canLogEv = q"${c.prefix}.canLogEv"
@@ -29,7 +31,9 @@ private[scalalogging] object Scala2LoggerTakingImplicitMacro {
         }"""
   }
 
-  def errorMessageArgs[A](c: LoggerContext[A])(message: c.Expr[String], args: c.Expr[Any]*)(a: c.Expr[A]): c.universe.Tree = {
+  def errorMessageArgs[A](
+      c: LoggerContext[A]
+  )(message: c.Expr[String], args: c.Expr[Any]*)(a: c.Expr[A]): c.universe.Tree = {
     import c.universe._
     val underlying = q"${c.prefix}.underlying"
     val canLogEv = q"${c.prefix}.canLogEv"
@@ -46,7 +50,9 @@ private[scalalogging] object Scala2LoggerTakingImplicitMacro {
     }
   }
 
-  def errorMessageMarker[A](c: LoggerContext[A])(marker: c.Expr[Marker], message: c.Expr[String])(a: c.Expr[A]): c.universe.Tree = {
+  def errorMessageMarker[A](
+      c: LoggerContext[A]
+  )(marker: c.Expr[Marker], message: c.Expr[String])(a: c.Expr[A]): c.universe.Tree = {
     import c.universe._
     val underlying = q"${c.prefix}.underlying"
     val canLogEv = q"${c.prefix}.canLogEv"
@@ -56,7 +62,9 @@ private[scalalogging] object Scala2LoggerTakingImplicitMacro {
         }"""
   }
 
-  def errorMessageCauseMarker[A](c: LoggerContext[A])(marker: c.Expr[Marker], message: c.Expr[String], cause: c.Expr[Throwable])(a: c.Expr[A]): c.universe.Tree = {
+  def errorMessageCauseMarker[A](
+      c: LoggerContext[A]
+  )(marker: c.Expr[Marker], message: c.Expr[String], cause: c.Expr[Throwable])(a: c.Expr[A]): c.universe.Tree = {
     import c.universe._
     val underlying = q"${c.prefix}.underlying"
     val canLogEv = q"${c.prefix}.canLogEv"
@@ -66,7 +74,9 @@ private[scalalogging] object Scala2LoggerTakingImplicitMacro {
         }"""
   }
 
-  def errorMessageArgsMarker[A](c: LoggerContext[A])(marker: c.Expr[Marker], message: c.Expr[String], args: c.Expr[Any]*)(a: c.Expr[A]): c.universe.Tree = {
+  def errorMessageArgsMarker[A](
+      c: LoggerContext[A]
+  )(marker: c.Expr[Marker], message: c.Expr[String], args: c.Expr[Any]*)(a: c.Expr[A]): c.universe.Tree = {
     import c.universe._
     val underlying = q"${c.prefix}.underlying"
     val canLogEv = q"${c.prefix}.canLogEv"
@@ -105,7 +115,9 @@ private[scalalogging] object Scala2LoggerTakingImplicitMacro {
         }"""
   }
 
-  def warnMessageCause[A](c: LoggerContext[A])(message: c.Expr[String], cause: c.Expr[Throwable])(a: c.Expr[A]): c.universe.Tree = {
+  def warnMessageCause[A](
+      c: LoggerContext[A]
+  )(message: c.Expr[String], cause: c.Expr[Throwable])(a: c.Expr[A]): c.universe.Tree = {
     import c.universe._
     val underlying = q"${c.prefix}.underlying"
     val canLogEv = q"${c.prefix}.canLogEv"
@@ -115,7 +127,9 @@ private[scalalogging] object Scala2LoggerTakingImplicitMacro {
         }"""
   }
 
-  def warnMessageArgs[A](c: LoggerContext[A])(message: c.Expr[String], args: c.Expr[Any]*)(a: c.Expr[A]): c.universe.Tree = {
+  def warnMessageArgs[A](
+      c: LoggerContext[A]
+  )(message: c.Expr[String], args: c.Expr[Any]*)(a: c.Expr[A]): c.universe.Tree = {
     import c.universe._
     val underlying = q"${c.prefix}.underlying"
     val canLogEv = q"${c.prefix}.canLogEv"
@@ -132,7 +146,9 @@ private[scalalogging] object Scala2LoggerTakingImplicitMacro {
     }
   }
 
-  def warnMessageMarker[A](c: LoggerContext[A])(marker: c.Expr[Marker], message: c.Expr[String])(a: c.Expr[A]): c.universe.Tree = {
+  def warnMessageMarker[A](
+      c: LoggerContext[A]
+  )(marker: c.Expr[Marker], message: c.Expr[String])(a: c.Expr[A]): c.universe.Tree = {
     import c.universe._
     val underlying = q"${c.prefix}.underlying"
     val canLogEv = q"${c.prefix}.canLogEv"
@@ -142,7 +158,9 @@ private[scalalogging] object Scala2LoggerTakingImplicitMacro {
         }"""
   }
 
-  def warnMessageCauseMarker[A](c: LoggerContext[A])(marker: c.Expr[Marker], message: c.Expr[String], cause: c.Expr[Throwable])(a: c.Expr[A]): c.universe.Tree = {
+  def warnMessageCauseMarker[A](
+      c: LoggerContext[A]
+  )(marker: c.Expr[Marker], message: c.Expr[String], cause: c.Expr[Throwable])(a: c.Expr[A]): c.universe.Tree = {
     import c.universe._
     val underlying = q"${c.prefix}.underlying"
     val canLogEv = q"${c.prefix}.canLogEv"
@@ -152,7 +170,9 @@ private[scalalogging] object Scala2LoggerTakingImplicitMacro {
         }"""
   }
 
-  def warnMessageArgsMarker[A](c: LoggerContext[A])(marker: c.Expr[Marker], message: c.Expr[String], args: c.Expr[Any]*)(a: c.Expr[A]): c.universe.Tree = {
+  def warnMessageArgsMarker[A](
+      c: LoggerContext[A]
+  )(marker: c.Expr[Marker], message: c.Expr[String], args: c.Expr[Any]*)(a: c.Expr[A]): c.universe.Tree = {
     import c.universe._
     val underlying = q"${c.prefix}.underlying"
     val canLogEv = q"${c.prefix}.canLogEv"
@@ -191,7 +211,9 @@ private[scalalogging] object Scala2LoggerTakingImplicitMacro {
         }"""
   }
 
-  def infoMessageCause[A](c: LoggerContext[A])(message: c.Expr[String], cause: c.Expr[Throwable])(a: c.Expr[A]): c.universe.Tree = {
+  def infoMessageCause[A](
+      c: LoggerContext[A]
+  )(message: c.Expr[String], cause: c.Expr[Throwable])(a: c.Expr[A]): c.universe.Tree = {
     import c.universe._
     val underlying = q"${c.prefix}.underlying"
     val canLogEv = q"${c.prefix}.canLogEv"
@@ -201,7 +223,9 @@ private[scalalogging] object Scala2LoggerTakingImplicitMacro {
         }"""
   }
 
-  def infoMessageArgs[A](c: LoggerContext[A])(message: c.Expr[String], args: c.Expr[Any]*)(a: c.Expr[A]): c.universe.Tree = {
+  def infoMessageArgs[A](
+      c: LoggerContext[A]
+  )(message: c.Expr[String], args: c.Expr[Any]*)(a: c.Expr[A]): c.universe.Tree = {
     import c.universe._
     val underlying = q"${c.prefix}.underlying"
     val canLogEv = q"${c.prefix}.canLogEv"
@@ -218,7 +242,9 @@ private[scalalogging] object Scala2LoggerTakingImplicitMacro {
     }
   }
 
-  def infoMessageMarker[A](c: LoggerContext[A])(marker: c.Expr[Marker], message: c.Expr[String])(a: c.Expr[A]): c.universe.Tree = {
+  def infoMessageMarker[A](
+      c: LoggerContext[A]
+  )(marker: c.Expr[Marker], message: c.Expr[String])(a: c.Expr[A]): c.universe.Tree = {
     import c.universe._
     val underlying = q"${c.prefix}.underlying"
     val canLogEv = q"${c.prefix}.canLogEv"
@@ -228,7 +254,9 @@ private[scalalogging] object Scala2LoggerTakingImplicitMacro {
         }"""
   }
 
-  def infoMessageCauseMarker[A](c: LoggerContext[A])(marker: c.Expr[Marker], message: c.Expr[String], cause: c.Expr[Throwable])(a: c.Expr[A]): c.universe.Tree = {
+  def infoMessageCauseMarker[A](
+      c: LoggerContext[A]
+  )(marker: c.Expr[Marker], message: c.Expr[String], cause: c.Expr[Throwable])(a: c.Expr[A]): c.universe.Tree = {
     import c.universe._
     val underlying = q"${c.prefix}.underlying"
     val canLogEv = q"${c.prefix}.canLogEv"
@@ -238,7 +266,9 @@ private[scalalogging] object Scala2LoggerTakingImplicitMacro {
         }"""
   }
 
-  def infoMessageArgsMarker[A](c: LoggerContext[A])(marker: c.Expr[Marker], message: c.Expr[String], args: c.Expr[Any]*)(a: c.Expr[A]): c.universe.Tree = {
+  def infoMessageArgsMarker[A](
+      c: LoggerContext[A]
+  )(marker: c.Expr[Marker], message: c.Expr[String], args: c.Expr[Any]*)(a: c.Expr[A]): c.universe.Tree = {
     import c.universe._
     val underlying = q"${c.prefix}.underlying"
     val canLogEv = q"${c.prefix}.canLogEv"
@@ -277,7 +307,9 @@ private[scalalogging] object Scala2LoggerTakingImplicitMacro {
         }"""
   }
 
-  def debugMessageCause[A](c: LoggerContext[A])(message: c.Expr[String], cause: c.Expr[Throwable])(a: c.Expr[A]): c.universe.Tree = {
+  def debugMessageCause[A](
+      c: LoggerContext[A]
+  )(message: c.Expr[String], cause: c.Expr[Throwable])(a: c.Expr[A]): c.universe.Tree = {
     import c.universe._
     val underlying = q"${c.prefix}.underlying"
     val canLogEv = q"${c.prefix}.canLogEv"
@@ -287,7 +319,9 @@ private[scalalogging] object Scala2LoggerTakingImplicitMacro {
         }"""
   }
 
-  def debugMessageArgs[A](c: LoggerContext[A])(message: c.Expr[String], args: c.Expr[Any]*)(a: c.Expr[A]): c.universe.Tree = {
+  def debugMessageArgs[A](
+      c: LoggerContext[A]
+  )(message: c.Expr[String], args: c.Expr[Any]*)(a: c.Expr[A]): c.universe.Tree = {
     import c.universe._
     val underlying = q"${c.prefix}.underlying"
     val canLogEv = q"${c.prefix}.canLogEv"
@@ -304,7 +338,9 @@ private[scalalogging] object Scala2LoggerTakingImplicitMacro {
     }
   }
 
-  def debugMessageMarker[A](c: LoggerContext[A])(marker: c.Expr[Marker], message: c.Expr[String])(a: c.Expr[A]): c.universe.Tree = {
+  def debugMessageMarker[A](
+      c: LoggerContext[A]
+  )(marker: c.Expr[Marker], message: c.Expr[String])(a: c.Expr[A]): c.universe.Tree = {
     import c.universe._
     val underlying = q"${c.prefix}.underlying"
     val canLogEv = q"${c.prefix}.canLogEv"
@@ -314,7 +350,9 @@ private[scalalogging] object Scala2LoggerTakingImplicitMacro {
         }"""
   }
 
-  def debugMessageCauseMarker[A](c: LoggerContext[A])(marker: c.Expr[Marker], message: c.Expr[String], cause: c.Expr[Throwable])(a: c.Expr[A]): c.universe.Tree = {
+  def debugMessageCauseMarker[A](
+      c: LoggerContext[A]
+  )(marker: c.Expr[Marker], message: c.Expr[String], cause: c.Expr[Throwable])(a: c.Expr[A]): c.universe.Tree = {
     import c.universe._
     val underlying = q"${c.prefix}.underlying"
     val canLogEv = q"${c.prefix}.canLogEv"
@@ -324,7 +362,9 @@ private[scalalogging] object Scala2LoggerTakingImplicitMacro {
         }"""
   }
 
-  def debugMessageArgsMarker[A](c: LoggerContext[A])(marker: c.Expr[Marker], message: c.Expr[String], args: c.Expr[Any]*)(a: c.Expr[A]): c.universe.Tree = {
+  def debugMessageArgsMarker[A](
+      c: LoggerContext[A]
+  )(marker: c.Expr[Marker], message: c.Expr[String], args: c.Expr[Any]*)(a: c.Expr[A]): c.universe.Tree = {
     import c.universe._
     val underlying = q"${c.prefix}.underlying"
     val canLogEv = q"${c.prefix}.canLogEv"
@@ -363,7 +403,9 @@ private[scalalogging] object Scala2LoggerTakingImplicitMacro {
         }"""
   }
 
-  def traceMessageCause[A](c: LoggerContext[A])(message: c.Expr[String], cause: c.Expr[Throwable])(a: c.Expr[A]): c.universe.Tree = {
+  def traceMessageCause[A](
+      c: LoggerContext[A]
+  )(message: c.Expr[String], cause: c.Expr[Throwable])(a: c.Expr[A]): c.universe.Tree = {
     import c.universe._
     val underlying = q"${c.prefix}.underlying"
     val canLogEv = q"${c.prefix}.canLogEv"
@@ -373,7 +415,9 @@ private[scalalogging] object Scala2LoggerTakingImplicitMacro {
         }"""
   }
 
-  def traceMessageArgs[A](c: LoggerContext[A])(message: c.Expr[String], args: c.Expr[Any]*)(a: c.Expr[A]): c.universe.Tree = {
+  def traceMessageArgs[A](
+      c: LoggerContext[A]
+  )(message: c.Expr[String], args: c.Expr[Any]*)(a: c.Expr[A]): c.universe.Tree = {
     import c.universe._
     val underlying = q"${c.prefix}.underlying"
     val canLogEv = q"${c.prefix}.canLogEv"
@@ -390,7 +434,9 @@ private[scalalogging] object Scala2LoggerTakingImplicitMacro {
     }
   }
 
-  def traceMessageMarker[A](c: LoggerContext[A])(marker: c.Expr[Marker], message: c.Expr[String])(a: c.Expr[A]): c.universe.Tree = {
+  def traceMessageMarker[A](
+      c: LoggerContext[A]
+  )(marker: c.Expr[Marker], message: c.Expr[String])(a: c.Expr[A]): c.universe.Tree = {
     import c.universe._
     val underlying = q"${c.prefix}.underlying"
     val canLogEv = q"${c.prefix}.canLogEv"
@@ -400,7 +446,9 @@ private[scalalogging] object Scala2LoggerTakingImplicitMacro {
         }"""
   }
 
-  def traceMessageCauseMarker[A](c: LoggerContext[A])(marker: c.Expr[Marker], message: c.Expr[String], cause: c.Expr[Throwable])(a: c.Expr[A]): c.universe.Tree = {
+  def traceMessageCauseMarker[A](
+      c: LoggerContext[A]
+  )(marker: c.Expr[Marker], message: c.Expr[String], cause: c.Expr[Throwable])(a: c.Expr[A]): c.universe.Tree = {
     import c.universe._
     val underlying = q"${c.prefix}.underlying"
     val canLogEv = q"${c.prefix}.canLogEv"
@@ -410,7 +458,9 @@ private[scalalogging] object Scala2LoggerTakingImplicitMacro {
         }"""
   }
 
-  def traceMessageArgsMarker[A](c: LoggerContext[A])(marker: c.Expr[Marker], message: c.Expr[String], args: c.Expr[Any]*)(a: c.Expr[A]): c.universe.Tree = {
+  def traceMessageArgsMarker[A](
+      c: LoggerContext[A]
+  )(marker: c.Expr[Marker], message: c.Expr[String], args: c.Expr[Any]*)(a: c.Expr[A]): c.universe.Tree = {
     import c.universe._
     val underlying = q"${c.prefix}.underlying"
     val canLogEv = q"${c.prefix}.canLogEv"

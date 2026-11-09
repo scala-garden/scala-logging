@@ -1,7 +1,7 @@
 package com.typesafe.scalalogging
 
 import java.util.NoSuchElementException
-import org.slf4j.{ Logger => Underlying }
+import org.slf4j.{Logger => Underlying}
 import org.slf4j.Marker
 import org.scalatest.matchers.should.Matchers
 import org.scalatest.wordspec.AnyWordSpec

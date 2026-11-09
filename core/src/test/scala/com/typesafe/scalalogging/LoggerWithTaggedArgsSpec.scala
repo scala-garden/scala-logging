@@ -1,16 +1,15 @@
 package com.typesafe.scalalogging
 
 import com.typesafe.scalalogging.tag.@@
-import org.slf4j.{ Logger => Underlying }
+import org.slf4j.{Logger => Underlying}
 import org.scalatest.matchers.should.Matchers
 import org.scalatest.wordspec.AnyWordSpec
 import org.scalatestplus.mockito.MockitoSugar
 import org.mockito.ArgumentMatchers._
 import org.mockito.Mockito._
 
-object tag {
+object tag extends TaggedType {
   trait Tagged[U]
-  type @@[+T, U] = T with Tagged[U]
 
   def taggedString[T](s: String): String @@ T = s.asInstanceOf[String @@ T]
   def taggedInteger[T](i: Integer): Integer @@ T = i.asInstanceOf[Integer @@ T]
