@@ -14,7 +14,7 @@ jobs:
           distribution: temurin
           java-version: 17
       - uses: sbt/setup-sbt@v1
-      - run: sbt ci-release
+      - run: sbt --batch ci-release
         env:
           PGP_PASSPHRASE: ${{secrets.PGP_PASSPHRASE}}
           PGP_SECRET: ${{secrets.PGP_SECRET}}

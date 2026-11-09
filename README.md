@@ -55,14 +55,14 @@ Building from source requires JDK 17 or higher and sbt 2.0.5 (selected by
 `project/build.properties`).
 
 ```sh
-sbt +test
-sbt '++2.13.16' integration-test/test
-sbt '++3.10.0' integration-test/test
+sbt --batch +test
+sbt --batch "++2.13.16; integration-test/test"
+sbt --batch "++3.10.0; integration-test/test"
 ```
 
 Format sources and build files with
-`sbt +scalafmtAll integration-test/scalafmtAll scalafmtSbt`. CI checks formatting
-with `sbt +scalafmtCheckAll integration-test/scalafmtCheckAll scalafmtSbtCheck`.
+`sbt --batch "+scalafmtAll; integration-test/scalafmtAll; scalafmtSbt"`. CI checks formatting
+with `sbt --batch "+scalafmtCheckAll; integration-test/scalafmtCheckAll; scalafmtSbtCheck"`.
 
 ## Using Scala Logging
 

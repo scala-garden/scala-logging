@@ -14,7 +14,7 @@ jobs:
           distribution: temurin
           java-version: 17
       - uses: sbt/setup-sbt@v1
-      - run: sbt +scalafmtCheckAll integration-test/scalafmtCheckAll scalafmtSbtCheck
+      - run: sbt --batch "+scalafmtCheckAll; integration-test/scalafmtCheckAll; scalafmtSbtCheck"
   test:
     strategy:
       fail-fast: false
@@ -34,7 +34,7 @@ jobs:
       - uses: sbt/setup-sbt@v1
       - name: Test
         run: |
-          sbt ++${{matrix.scala}} test core/packageBin core/makePom
+          sbt --batch "++${{matrix.scala}}; test; core/packageBin; core/makePom"
           git diff --exit-code
           
   integration-test:
@@ -56,5 +56,5 @@ jobs:
       - uses: sbt/setup-sbt@v1
       - name: Test
         run: |
-          sbt ++${{matrix.scala}} integration-test/test
+          sbt --batch "++${{matrix.scala}}; integration-test/test"
           git diff --exit-code
