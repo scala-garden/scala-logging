@@ -1,7 +1,7 @@
 package com.typesafe.scalalogging
 
 import java.io._
-import org.slf4j.{ Logger => Underlying }
+import org.slf4j.{Logger => Underlying}
 import org.scalatest.matchers.should.Matchers
 import org.scalatest.wordspec.AnyWordSpec
 import org.scalatestplus.mockito.MockitoSugar
@@ -554,28 +554,22 @@ class LoggerSpec extends AnyWordSpec with Matchers with Varargs with MockitoSuga
     "be usable after deserialization" in {
       val logger =
         deserialize[CorrelationId](
-          serialize[CorrelationId](
-            Logger.takingImplicit[CorrelationId](
-              org.slf4j.LoggerFactory.getLogger("test"))))
+          serialize[CorrelationId](Logger.takingImplicit[CorrelationId](org.slf4j.LoggerFactory.getLogger("test")))
+        )
 
       logger.trace("Back from deserialization")
     }
 
     "constructed by explicit class and be usable after deserialization" in {
       val logger =
-        deserialize[CorrelationId](
-          serialize[CorrelationId](
-            Logger.takingImplicit[CorrelationId](
-              classOf[LoggerSpec])))
+        deserialize[CorrelationId](serialize[CorrelationId](Logger.takingImplicit[CorrelationId](classOf[LoggerSpec])))
 
       logger.trace("Back from deserialization")
     }
 
     "constructed by implicit class tag and be usable after deserialization" in {
       val logger =
-        deserialize[CorrelationId](
-          serialize[CorrelationId](
-            Logger.takingImplicit[LoggerSpec, CorrelationId]))
+        deserialize[CorrelationId](serialize[CorrelationId](Logger.takingImplicit[LoggerSpec, CorrelationId]))
 
       logger.trace("Back from deserialization")
     }

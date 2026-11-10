@@ -3,7 +3,7 @@ package com.typesafe.scalalogging
 import org.mockito.ArgumentMatchers._
 import org.mockito.Mockito._
 import org.scalatestplus.mockito.MockitoSugar
-import org.slf4j.{ Logger => Underlying }
+import org.slf4j.{Logger => Underlying}
 import org.scalatest.matchers.should.Matchers
 import org.scalatest.wordspec.AnyWordSpec
 
@@ -385,7 +385,8 @@ class LoggerTakingImplicitSpec extends AnyWordSpec with Matchers with Varargs wi
     }
   }
 
-  private def fixture(p: Underlying => Boolean, isEnabled: Boolean, stubCanLog: Boolean = true) = new LoggerF(p, isEnabled, stubCanLog)
+  private def fixture(p: Underlying => Boolean, isEnabled: Boolean, stubCanLog: Boolean = true) =
+    new LoggerF(p, isEnabled, stubCanLog)
   private class LoggerF(p: Underlying => Boolean, isEnabled: Boolean, stubCanLog: Boolean = true) {
     implicit val correlationId: CorrelationId = CorrelationId("corrId")
     implicit val canLogCorrelationId: CanLog[CorrelationId] = mock[CanLog[CorrelationId]]

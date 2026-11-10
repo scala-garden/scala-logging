@@ -2,7 +2,7 @@ package com.typesafe.scalalogging
 
 import org.slf4j.Marker
 import scala.quoted.*
-import org.slf4j.{ Logger as Underlying }
+import org.slf4j.{Logger as Underlying}
 
 private[scalalogging] object LoggerMacro {
 
@@ -13,42 +13,49 @@ private[scalalogging] object LoggerMacro {
     errorMessageArgs(underlying, messageFormat, Expr.ofSeq(args))
   }
 
-  def errorMessageCause(underlying: Expr[Underlying], message: Expr[String], cause: Expr[Throwable]) (using Quotes) =
+  def errorMessageCause(underlying: Expr[Underlying], message: Expr[String], cause: Expr[Throwable])(using Quotes) =
     '{ if ($underlying.isErrorEnabled) $underlying.error($message, $cause) }
 
-  def errorMessageArgs(underlying: Expr[Underlying], message: Expr[String], args: Expr[Seq[Any]]) (using Quotes) = {
+  def errorMessageArgs(underlying: Expr[Underlying], message: Expr[String], args: Expr[Seq[Any]])(using Quotes) = {
     val anyRefArgs = formatArgs(args)
-    if(anyRefArgs.isEmpty)
+    if (anyRefArgs.isEmpty)
       '{ if ($underlying.isErrorEnabled) $underlying.error($message) }
-    else if(anyRefArgs.lengthIs == 1)
-      '{ if ($underlying.isErrorEnabled) $underlying.error($message, ${anyRefArgs.head}) }
+    else if (anyRefArgs.lengthIs == 1)
+      '{ if ($underlying.isErrorEnabled) $underlying.error($message, ${ anyRefArgs.head }) }
     else
-      '{ if ($underlying.isErrorEnabled) $underlying.error($message, ${Expr.ofSeq(anyRefArgs)}*) }
+      '{ if ($underlying.isErrorEnabled) $underlying.error($message, ${ Expr.ofSeq(anyRefArgs) }*) }
   }
 
-  def errorMessageMarker(underlying: Expr[Underlying], marker: Expr[Marker], message: Expr[String]) (using Quotes) = {
+  def errorMessageMarker(underlying: Expr[Underlying], marker: Expr[Marker], message: Expr[String])(using Quotes) = {
     val (messageFormat, args) = deconstructInterpolatedMessage(message)
     errorMessageArgsMarker(underlying, marker, messageFormat, Expr.ofSeq(args))
   }
-  
-  def errorMessageCauseMarker(underlying: Expr[Underlying], marker: Expr[Marker], message: Expr[String], cause: Expr[Throwable]) (using Quotes) =
+
+  def errorMessageCauseMarker(
+      underlying: Expr[Underlying],
+      marker: Expr[Marker],
+      message: Expr[String],
+      cause: Expr[Throwable]
+  )(using Quotes) =
     '{ if ($underlying.isErrorEnabled($marker)) $underlying.error($marker, $message, $cause) }
 
-  def errorMessageArgsMarker(underlying: Expr[Underlying], marker: Expr[Marker], message: Expr[String], args: Expr[Seq[Any]]) (using Quotes) = {
+  def errorMessageArgsMarker(
+      underlying: Expr[Underlying],
+      marker: Expr[Marker],
+      message: Expr[String],
+      args: Expr[Seq[Any]]
+  )(using Quotes) = {
     val anyRefArgs = formatArgs(args)
-    if(anyRefArgs.isEmpty)
+    if (anyRefArgs.isEmpty)
       '{ if ($underlying.isErrorEnabled($marker)) $underlying.error($marker, $message) }
-    else if(anyRefArgs.lengthIs == 1)
-      '{if ($underlying.isErrorEnabled($marker)) $underlying.error($marker, $message, ${anyRefArgs.head}) }
+    else if (anyRefArgs.lengthIs == 1)
+      '{ if ($underlying.isErrorEnabled($marker)) $underlying.error($marker, $message, ${ anyRefArgs.head }) }
     else
-      '{ if ($underlying.isErrorEnabled($marker)) $underlying.error($marker, $message, ${Expr.ofSeq(anyRefArgs)}*) }
+      '{ if ($underlying.isErrorEnabled($marker)) $underlying.error($marker, $message, ${ Expr.ofSeq(anyRefArgs) }*) }
   }
 
-  def errorCode(underlying: Expr[Underlying], body: Expr[Unit]) (using Quotes) =
+  def errorCode(underlying: Expr[Underlying], body: Expr[Unit])(using Quotes) =
     '{ if ($underlying.isErrorEnabled) $body }
-
-
-
 
   // Warn
 
@@ -57,42 +64,49 @@ private[scalalogging] object LoggerMacro {
     warnMessageArgs(underlying, messageFormat, Expr.ofSeq(args))
   }
 
-  def warnMessageCause(underlying: Expr[Underlying], message: Expr[String], cause: Expr[Throwable]) (using Quotes) =
-  '{ if ($underlying.isWarnEnabled) $underlying.warn($message, $cause) }
+  def warnMessageCause(underlying: Expr[Underlying], message: Expr[String], cause: Expr[Throwable])(using Quotes) =
+    '{ if ($underlying.isWarnEnabled) $underlying.warn($message, $cause) }
 
-  def warnMessageArgs(underlying: Expr[Underlying], message: Expr[String], args: Expr[Seq[Any]]) (using Quotes) = {
+  def warnMessageArgs(underlying: Expr[Underlying], message: Expr[String], args: Expr[Seq[Any]])(using Quotes) = {
     val anyRefArgs = formatArgs(args)
-    if(anyRefArgs.isEmpty)
+    if (anyRefArgs.isEmpty)
       '{ if ($underlying.isWarnEnabled) $underlying.warn($message) }
-    else if(anyRefArgs.lengthIs == 1)
-      '{ if ($underlying.isWarnEnabled) $underlying.warn($message, ${anyRefArgs.head}) }
+    else if (anyRefArgs.lengthIs == 1)
+      '{ if ($underlying.isWarnEnabled) $underlying.warn($message, ${ anyRefArgs.head }) }
     else
-      '{ if ($underlying.isWarnEnabled) $underlying.warn($message, ${Expr.ofSeq(anyRefArgs)}*) }
+      '{ if ($underlying.isWarnEnabled) $underlying.warn($message, ${ Expr.ofSeq(anyRefArgs) }*) }
   }
 
-  def warnMessageMarker(underlying: Expr[Underlying], marker: Expr[Marker], message: Expr[String]) (using Quotes) = {
+  def warnMessageMarker(underlying: Expr[Underlying], marker: Expr[Marker], message: Expr[String])(using Quotes) = {
     val (messageFormat, args) = deconstructInterpolatedMessage(message)
     warnMessageArgsMarker(underlying, marker, messageFormat, Expr.ofSeq(args))
   }
 
-  def warnMessageCauseMarker(underlying: Expr[Underlying], marker: Expr[Marker], message: Expr[String], cause: Expr[Throwable]) (using Quotes) =
+  def warnMessageCauseMarker(
+      underlying: Expr[Underlying],
+      marker: Expr[Marker],
+      message: Expr[String],
+      cause: Expr[Throwable]
+  )(using Quotes) =
     '{ if ($underlying.isWarnEnabled($marker)) $underlying.warn($marker, $message, $cause) }
 
-  def warnMessageArgsMarker(underlying: Expr[Underlying], marker: Expr[Marker], message: Expr[String], args: Expr[Seq[Any]]) (using Quotes) = {
+  def warnMessageArgsMarker(
+      underlying: Expr[Underlying],
+      marker: Expr[Marker],
+      message: Expr[String],
+      args: Expr[Seq[Any]]
+  )(using Quotes) = {
     val anyRefArgs = formatArgs(args)
-    if(anyRefArgs.isEmpty)
+    if (anyRefArgs.isEmpty)
       '{ if ($underlying.isWarnEnabled($marker)) $underlying.warn($marker, $message) }
-    else if(anyRefArgs.lengthIs == 1)
-      '{if ($underlying.isWarnEnabled($marker)) $underlying.warn($marker, $message, ${anyRefArgs.head}) }
+    else if (anyRefArgs.lengthIs == 1)
+      '{ if ($underlying.isWarnEnabled($marker)) $underlying.warn($marker, $message, ${ anyRefArgs.head }) }
     else
-      '{ if ($underlying.isWarnEnabled($marker)) $underlying.warn($marker, $message, ${Expr.ofSeq(anyRefArgs)}*) }
+      '{ if ($underlying.isWarnEnabled($marker)) $underlying.warn($marker, $message, ${ Expr.ofSeq(anyRefArgs) }*) }
   }
 
-  def warnCode(underlying: Expr[Underlying], body: Expr[Unit]) (using Quotes) =
+  def warnCode(underlying: Expr[Underlying], body: Expr[Unit])(using Quotes) =
     '{ if ($underlying.isWarnEnabled) $body }
-
-
-
 
   // Info
 
@@ -101,43 +115,49 @@ private[scalalogging] object LoggerMacro {
     infoMessageArgs(underlying, messageFormat, Expr.ofSeq(args))
   }
 
-  def infoMessageCause(underlying: Expr[Underlying], message: Expr[String], cause: Expr[Throwable]) (using Quotes) =
+  def infoMessageCause(underlying: Expr[Underlying], message: Expr[String], cause: Expr[Throwable])(using Quotes) =
     '{ if ($underlying.isInfoEnabled) $underlying.info($message, $cause) }
 
-  def infoMessageArgs(underlying: Expr[Underlying], message: Expr[String], args: Expr[Seq[Any]]) (using Quotes) = {
+  def infoMessageArgs(underlying: Expr[Underlying], message: Expr[String], args: Expr[Seq[Any]])(using Quotes) = {
     val anyRefArgs = formatArgs(args)
-    if(anyRefArgs.isEmpty)
+    if (anyRefArgs.isEmpty)
       '{ if ($underlying.isInfoEnabled) $underlying.info($message) }
-    else if(anyRefArgs.lengthIs == 1)
-      '{ if ($underlying.isInfoEnabled) $underlying.info($message, ${anyRefArgs.head}) }
+    else if (anyRefArgs.lengthIs == 1)
+      '{ if ($underlying.isInfoEnabled) $underlying.info($message, ${ anyRefArgs.head }) }
     else
-      '{ if ($underlying.isInfoEnabled) $underlying.info($message, ${Expr.ofSeq(anyRefArgs)}*) }
+      '{ if ($underlying.isInfoEnabled) $underlying.info($message, ${ Expr.ofSeq(anyRefArgs) }*) }
   }
 
-  def infoMessageMarker(underlying: Expr[Underlying], marker: Expr[Marker], message: Expr[String]) (using Quotes) = {
+  def infoMessageMarker(underlying: Expr[Underlying], marker: Expr[Marker], message: Expr[String])(using Quotes) = {
     val (messageFormat, args) = deconstructInterpolatedMessage(message)
     infoMessageArgsMarker(underlying, marker, messageFormat, Expr.ofSeq(args))
   }
 
-  def infoMessageCauseMarker(underlying: Expr[Underlying], marker: Expr[Marker], message: Expr[String], cause: Expr[Throwable]) (using Quotes) =
+  def infoMessageCauseMarker(
+      underlying: Expr[Underlying],
+      marker: Expr[Marker],
+      message: Expr[String],
+      cause: Expr[Throwable]
+  )(using Quotes) =
     '{ if ($underlying.isInfoEnabled($marker)) $underlying.info($marker, $message, $cause) }
 
-  def infoMessageArgsMarker(underlying: Expr[Underlying], marker: Expr[Marker], message: Expr[String], args: Expr[Seq[Any]]) (using Quotes) = {
+  def infoMessageArgsMarker(
+      underlying: Expr[Underlying],
+      marker: Expr[Marker],
+      message: Expr[String],
+      args: Expr[Seq[Any]]
+  )(using Quotes) = {
     val anyRefArgs = formatArgs(args)
-    if(anyRefArgs.isEmpty)
+    if (anyRefArgs.isEmpty)
       '{ if ($underlying.isInfoEnabled($marker)) $underlying.info($marker, $message) }
-    else if(anyRefArgs.lengthIs == 1)
-      '{if ($underlying.isInfoEnabled($marker)) $underlying.info($marker, $message, ${anyRefArgs.head}) }
+    else if (anyRefArgs.lengthIs == 1)
+      '{ if ($underlying.isInfoEnabled($marker)) $underlying.info($marker, $message, ${ anyRefArgs.head }) }
     else
-      '{ if ($underlying.isInfoEnabled($marker)) $underlying.info($marker, $message, ${Expr.ofSeq(anyRefArgs)}*) }
+      '{ if ($underlying.isInfoEnabled($marker)) $underlying.info($marker, $message, ${ Expr.ofSeq(anyRefArgs) }*) }
   }
 
-  def infoCode(underlying: Expr[Underlying], body: Expr[Unit]) (using Quotes) =
+  def infoCode(underlying: Expr[Underlying], body: Expr[Unit])(using Quotes) =
     '{ if ($underlying.isInfoEnabled) $body }
-  
-
-
-
 
   // Debug
 
@@ -146,42 +166,49 @@ private[scalalogging] object LoggerMacro {
     debugMessageArgs(underlying, messageFormat, Expr.ofSeq(args))
   }
 
-  def debugMessageCause(underlying: Expr[Underlying], message: Expr[String], cause: Expr[Throwable]) (using Quotes) =
+  def debugMessageCause(underlying: Expr[Underlying], message: Expr[String], cause: Expr[Throwable])(using Quotes) =
     '{ if ($underlying.isDebugEnabled) $underlying.debug($message, $cause) }
 
-  def debugMessageArgs(underlying: Expr[Underlying], message: Expr[String], args: Expr[Seq[Any]]) (using Quotes) = {
+  def debugMessageArgs(underlying: Expr[Underlying], message: Expr[String], args: Expr[Seq[Any]])(using Quotes) = {
     val anyRefArgs = formatArgs(args)
-    if(anyRefArgs.isEmpty)
+    if (anyRefArgs.isEmpty)
       '{ if ($underlying.isDebugEnabled) $underlying.debug($message) }
-    else if(anyRefArgs.lengthIs == 1)
-      '{ if ($underlying.isDebugEnabled) $underlying.debug($message, ${anyRefArgs.head}) }
+    else if (anyRefArgs.lengthIs == 1)
+      '{ if ($underlying.isDebugEnabled) $underlying.debug($message, ${ anyRefArgs.head }) }
     else
-      '{ if ($underlying.isDebugEnabled) $underlying.debug($message, ${Expr.ofSeq(anyRefArgs)}*) }
+      '{ if ($underlying.isDebugEnabled) $underlying.debug($message, ${ Expr.ofSeq(anyRefArgs) }*) }
   }
 
-  def debugMessageMarker(underlying: Expr[Underlying], marker: Expr[Marker], message: Expr[String]) (using Quotes) = {
+  def debugMessageMarker(underlying: Expr[Underlying], marker: Expr[Marker], message: Expr[String])(using Quotes) = {
     val (messageFormat, args) = deconstructInterpolatedMessage(message)
     debugMessageArgsMarker(underlying, marker, messageFormat, Expr.ofSeq(args))
   }
 
-  def debugMessageCauseMarker(underlying: Expr[Underlying], marker: Expr[Marker], message: Expr[String], cause: Expr[Throwable]) (using Quotes) =
+  def debugMessageCauseMarker(
+      underlying: Expr[Underlying],
+      marker: Expr[Marker],
+      message: Expr[String],
+      cause: Expr[Throwable]
+  )(using Quotes) =
     '{ if ($underlying.isDebugEnabled($marker)) $underlying.debug($marker, $message, $cause) }
 
-  def debugMessageArgsMarker(underlying: Expr[Underlying], marker: Expr[Marker], message: Expr[String], args: Expr[Seq[Any]]) (using Quotes) = {
+  def debugMessageArgsMarker(
+      underlying: Expr[Underlying],
+      marker: Expr[Marker],
+      message: Expr[String],
+      args: Expr[Seq[Any]]
+  )(using Quotes) = {
     val anyRefArgs = formatArgs(args)
-    if(anyRefArgs.isEmpty)
+    if (anyRefArgs.isEmpty)
       '{ if ($underlying.isDebugEnabled($marker)) $underlying.debug($marker, $message) }
-    else if(anyRefArgs.lengthIs == 1)
-      '{if ($underlying.isDebugEnabled($marker)) $underlying.debug($marker, $message, ${anyRefArgs.head}) }
+    else if (anyRefArgs.lengthIs == 1)
+      '{ if ($underlying.isDebugEnabled($marker)) $underlying.debug($marker, $message, ${ anyRefArgs.head }) }
     else
-      '{ if ($underlying.isDebugEnabled($marker)) $underlying.debug($marker, $message, ${Expr.ofSeq(anyRefArgs)}*) }
+      '{ if ($underlying.isDebugEnabled($marker)) $underlying.debug($marker, $message, ${ Expr.ofSeq(anyRefArgs) }*) }
   }
 
-  def debugCode(underlying: Expr[Underlying], body: Expr[Unit]) (using Quotes) =
+  def debugCode(underlying: Expr[Underlying], body: Expr[Unit])(using Quotes) =
     '{ if ($underlying.isDebugEnabled) $body }
-
-
-
 
   // Trace
 
@@ -190,60 +217,67 @@ private[scalalogging] object LoggerMacro {
     traceMessageArgs(underlying, messageFormat, Expr.ofSeq(args))
   }
 
-  def traceMessageCause(underlying: Expr[Underlying], message: Expr[String], cause: Expr[Throwable]) (using Quotes) =
+  def traceMessageCause(underlying: Expr[Underlying], message: Expr[String], cause: Expr[Throwable])(using Quotes) =
     '{ if ($underlying.isTraceEnabled) $underlying.trace($message, $cause) }
 
-  def traceMessageArgs(underlying: Expr[Underlying], message: Expr[String], args: Expr[Seq[Any]]) (using Quotes) = {
+  def traceMessageArgs(underlying: Expr[Underlying], message: Expr[String], args: Expr[Seq[Any]])(using Quotes) = {
     val anyRefArgs = formatArgs(args)
-    if(anyRefArgs.isEmpty)
+    if (anyRefArgs.isEmpty)
       '{ if ($underlying.isTraceEnabled) $underlying.trace($message) }
-    else if(anyRefArgs.lengthIs == 1)
-      '{ if ($underlying.isTraceEnabled) $underlying.trace($message, ${anyRefArgs.head}) }
+    else if (anyRefArgs.lengthIs == 1)
+      '{ if ($underlying.isTraceEnabled) $underlying.trace($message, ${ anyRefArgs.head }) }
     else
-      '{ if ($underlying.isTraceEnabled) $underlying.trace($message, ${Expr.ofSeq(anyRefArgs)}*) }
+      '{ if ($underlying.isTraceEnabled) $underlying.trace($message, ${ Expr.ofSeq(anyRefArgs) }*) }
   }
 
-  def traceMessageMarker(underlying: Expr[Underlying], marker: Expr[Marker], message: Expr[String]) (using Quotes) = {
+  def traceMessageMarker(underlying: Expr[Underlying], marker: Expr[Marker], message: Expr[String])(using Quotes) = {
     val (messageFormat, args) = deconstructInterpolatedMessage(message)
     traceMessageArgsMarker(underlying, marker, messageFormat, Expr.ofSeq(args))
   }
 
-  def traceMessageCauseMarker(underlying: Expr[Underlying], marker: Expr[Marker], message: Expr[String], cause: Expr[Throwable]) (using Quotes) =
+  def traceMessageCauseMarker(
+      underlying: Expr[Underlying],
+      marker: Expr[Marker],
+      message: Expr[String],
+      cause: Expr[Throwable]
+  )(using Quotes) =
     '{ if ($underlying.isTraceEnabled($marker)) $underlying.trace($marker, $message, $cause) }
 
-  def traceMessageArgsMarker(underlying: Expr[Underlying], marker: Expr[Marker], message: Expr[String], args: Expr[Seq[Any]]) (using Quotes) = {
+  def traceMessageArgsMarker(
+      underlying: Expr[Underlying],
+      marker: Expr[Marker],
+      message: Expr[String],
+      args: Expr[Seq[Any]]
+  )(using Quotes) = {
     val anyRefArgs = formatArgs(args)
-    if(anyRefArgs.isEmpty)
+    if (anyRefArgs.isEmpty)
       '{ if ($underlying.isTraceEnabled($marker)) $underlying.trace($marker, $message) }
-    else if(anyRefArgs.lengthIs == 1)
-      '{if ($underlying.isTraceEnabled($marker)) $underlying.trace($marker, $message, ${anyRefArgs.head}) }
+    else if (anyRefArgs.lengthIs == 1)
+      '{ if ($underlying.isTraceEnabled($marker)) $underlying.trace($marker, $message, ${ anyRefArgs.head }) }
     else
-      '{ if ($underlying.isTraceEnabled($marker)) $underlying.trace($marker, $message, ${Expr.ofSeq(anyRefArgs)}*) }
+      '{ if ($underlying.isTraceEnabled($marker)) $underlying.trace($marker, $message, ${ Expr.ofSeq(anyRefArgs) }*) }
   }
 
-  def traceCode(underlying: Expr[Underlying], body: Expr[Unit]) (using Quotes) =
+  def traceCode(underlying: Expr[Underlying], body: Expr[Unit])(using Quotes) =
     '{ if ($underlying.isTraceEnabled) $body }
-
-
 
   /** Checks whether `message` is an interpolated string and transforms it into SLF4J string interpolation. */
   private def deconstructInterpolatedMessage(message: Expr[String])(using Quotes): (Expr[String], Seq[Expr[Any]]) = {
     import quotes.reflect.*
     import util.*
 
-    message.asTerm match{
+    message.asTerm match {
       case Inlined(_, _, Apply(Select(Apply(Select(Select(_, "StringContext"), _), messageNode), _), argumentsNode)) =>
         val messageTextPartsOpt: Option[List[String]] =
-          messageNode.collectFirst{
-            case Typed(Repeated(ls, _), _) =>
-              ls.collect{ case Literal(StringConstant(s)) => s}
+          messageNode.collectFirst { case Typed(Repeated(ls, _), _) =>
+            ls.collect { case Literal(StringConstant(s)) => s }
           }
         val argsOpt: Option[List[Term]] =
-          argumentsNode.collectFirst {
-            case Typed(Repeated(ls, _), _) => ls
+          argumentsNode.collectFirst { case Typed(Repeated(ls, _), _) =>
+            ls
           }
 
-        (messageTextPartsOpt, argsOpt) match{
+        (messageTextPartsOpt, argsOpt) match {
           case (Some(messageTextParts), Some(args)) =>
             val format = messageTextParts.iterator
               // Emulate standard interpolator escaping
@@ -266,15 +300,15 @@ private[scalalogging] object LoggerMacro {
     import util.*
 
     args.asTerm match {
-      case p@Inlined(_, _, Typed(Repeated(v, _),_)) =>
-        v.map{
+      case p @ Inlined(_, _, Typed(Repeated(v, _), _)) =>
+        v.map {
           case t if t.tpe <:< TypeRepr.of[AnyRef] => t.asExprOf[AnyRef]
-          case t => '{${t.asExpr}.asInstanceOf[AnyRef]}
+          case t                                  => '{ ${ t.asExpr }.asInstanceOf[AnyRef] }
         }
       case Repeated(v, _) =>
-        v.map{
+        v.map {
           case t if t.tpe <:< TypeRepr.of[AnyRef] => t.asExprOf[AnyRef]
-          case t => '{${t.asExpr}.asInstanceOf[AnyRef]}
+          case t                                  => '{ ${ t.asExpr }.asInstanceOf[AnyRef] }
         }
       case _ => Seq.empty
     }

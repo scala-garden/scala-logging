@@ -1,6 +1,6 @@
 package com.typesafe.scalalogging
 
-import org.slf4j.{ Logger => Underlying }
+import org.slf4j.{Logger => Underlying}
 
 trait CanLog[A] {
   def logMessage(originalMsg: String, context: A): String
@@ -11,4 +11,6 @@ trait CanLog[A] {
 }
 
 @SerialVersionUID(957385465L)
-class LoggerTakingImplicit[A] private[scalalogging] (val underlying: Underlying)(implicit val canLogEv: CanLog[A]) extends LoggerTakingImplicitImpl[A] with Serializable
+class LoggerTakingImplicit[A] private[scalalogging] (val underlying: Underlying)(implicit val canLogEv: CanLog[A])
+    extends LoggerTakingImplicitImpl[A]
+    with Serializable
