@@ -22,7 +22,7 @@ if (logger.isDebugEnabled) logger.debug(s"Some $expensive message!")
 
 * Java 17 or higher for Scala 3; Java 11 or higher for Scala 2
   * Scala Logging 3.x supports Java 8
-* Scala 2.12, 2.13 or 3.10
+* Scala 2.12, 2.13 or 3.9
 * Logging backend compatible with SLF4J
 
 A compatible logging backend is [Logback](http://logback.qos.ch), add it to your sbt build definition:
@@ -57,7 +57,7 @@ Building from source requires JDK 17 or higher and sbt 2.0.5 (selected by
 ```sh
 sbt --batch +test
 sbt --batch "++2.13.16; integration-test/test"
-sbt --batch "++3.10.0; integration-test/test"
+sbt --batch "++3.9.0; integration-test/test"
 ```
 
 Format sources and build files with

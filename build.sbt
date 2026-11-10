@@ -5,7 +5,7 @@ import sbt.{given, *}
 // basics
 
 val scala213 = "2.13.16"
-val scala3 = "3.10.0"
+val scala3 = "3.9.0"
 val scala2 = Seq("2.12.21", scala213)
 val isScala3 = Def.setting {
   CrossVersion.partialVersion(scalaVersion.value).exists(_._1 != 2)
